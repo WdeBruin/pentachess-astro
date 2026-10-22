@@ -46,7 +46,7 @@ function renderExcerpt(excerpt: string | undefined, title: string, slug: string)
 
         <h3 class="has-text-align-left has-text-color wp-block-heading" style="color:#006400">Laatste nieuws</h3>
 
-        <ul class="wp-block-latest-posts__list has-dates alignfull wp-block-latest-posts">
+        <ul class="wp-block-latest-posts__list has-dates wp-block-latest-posts">
           {latestPosts.map((post) => (
             <li>
               <a class="wp-block-latest-posts__post-title" href={`/nieuws/${post.slug}/`}>{post.data.title}</a>
