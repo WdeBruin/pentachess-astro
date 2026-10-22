@@ -1,0 +1,54 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import PostArticle from '../../../components/PostArticle.astro';
+import Pagination from '../../../components/Pagination.astro';
+import { getCollection, type CollectionEntry } from 'astro:content';
+
+export async function getStaticPaths() {
+  const allPosts = await getCollection('posts');
+  const sortedPosts = allPosts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+
+  const POSTS_PER_PAGE = 10;
+  const totalPages = Math.ceil(sortedPosts.length / POSTS_PER_PAGE);
+
+  const paths = [];
+  for (let pageNum = 2; pageNum <= totalPages; pageNum++) {
+    const start = (pageNum - 1) * POSTS_PER_PAGE;
+    const end = start + POSTS_PER_PAGE;
+    paths.push({
+      params: { page: String(pageNum) },
+      props: {
+        pagePosts: sortedPosts.slice(start, end),
+        currentPage: pageNum,
+        totalPages
+      }
+    });
+  }
+
+  return paths;
+}
+
+interface Props {
+  pagePosts: CollectionEntry<'posts'>[];
+  currentPage: number;
+  totalPages: number;
+}
+
+const { pagePosts, currentPage, totalPages } = Astro.props;
+---
+
+<BaseLayout
+  title={`Nieuws – Pagina ${currentPage} – Pentachess`}
+  bodyClass="blog custom-background wp-custom-logo wp-embed-responsive has-no-pagination showing-comments show-avatars footer-top-visible"
+>
+  {pagePosts.map((post, idx) => (
+    <>
+      <PostArticle post={post} isSingle={false} />
+      {idx < pagePosts.length - 1 && (
+        <hr class="post-separator styled-separator is-style-wide section-inner" aria-hidden="true" />
+      )}
+    </>
+  ))}
+
+  <Pagination currentPage={currentPage} totalPages={totalPages} baseUrl="/nieuws/" />
+</BaseLayout>

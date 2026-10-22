@@ -1,0 +1,23 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import pagesData from '../data/pages.json';
+
+const infoPage = pagesData['info'];
+---
+
+<BaseLayout
+  title="Info – Pentachess"
+  bodyClass="page-template-default page page-id-2 custom-background wp-custom-logo wp-embed-responsive singular missing-post-thumbnail has-no-pagination not-showing-comments show-avatars footer-top-visible"
+>
+  <article class="post-2 page type-page status-publish hentry" id="post-2">
+    <header class="entry-header has-text-align-center header-footer-group">
+      <div class="entry-header-inner section-inner medium">
+        <h1 class="entry-title">{infoPage.title}</h1>
+      </div>
+    </header>
+
+    <div class="post-inner thin">
+      <div class="entry-content" set:html={infoPage.content} />
+    </div>
+  </article>
+</BaseLayout>

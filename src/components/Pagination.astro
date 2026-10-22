@@ -1,0 +1,70 @@
+---
+interface Props {
+  currentPage: number;
+  totalPages: number;
+  baseUrl?: string;
+}
+
+const { currentPage, totalPages, baseUrl = '/nieuws/' } = Astro.props;
+
+function getPageUrl(p: number) {
+  if (p === 1) return baseUrl;
+  const base = baseUrl.endsWith('/') ? baseUrl : `${baseUrl}/`;
+  return `${base}page/${p}/`;
+}
+
+// Generate pagination item list
+// e.g. for 5 pages total
+const pages: (number | 'dots')[] = [];
+for (let i = 1; i <= totalPages; i++) {
+  if (
+    i === 1 ||
+    i === totalPages ||
+    (i >= currentPage - 1 && i <= currentPage + 1)
+  ) {
+    pages.push(i);
+  } else if (pages[pages.length - 1] !== 'dots') {
+    pages.push('dots');
+  }
+}
+---
+
+{totalPages > 1 && (
+  <div class="pagination-wrapper section-inner">
+    <hr class="styled-separator pagination-separator is-style-wide" aria-hidden="true" />
+    <nav class="navigation pagination" aria-label="Berichten">
+      <h2 class="screen-reader-text">Berichtnavigatie</h2>
+      <div class="nav-links">
+        {currentPage > 1 ? (
+          <a class="prev page-numbers" href={getPageUrl(currentPage - 1)}>
+            <span aria-hidden="true">&larr;</span> <span class="nav-prev-text">Nieuwere <span class="nav-short">berichten</span></span>
+          </a>
+        ) : (
+          <span class="prev page-numbers placeholder" aria-hidden="true">
+            <span aria-hidden="true">&larr;</span> <span class="nav-prev-text">Nieuwere <span class="nav-short">berichten</span></span>
+          </span>
+        )}
+
+        {pages.map((p) => {
+          if (p === 'dots') {
+            return <span class="page-numbers dots">&hellip;</span>;
+          }
+          if (p === currentPage) {
+            return <span aria-current="page" class="page-numbers current">{p}</span>;
+          }
+          return <a class="page-numbers" href={getPageUrl(p)}>{p}</a>;
+        })}
+
+        {currentPage < totalPages ? (
+          <a class="next page-numbers" href={getPageUrl(currentPage + 1)}>
+            <span class="nav-next-text">Oudere <span class="nav-short">berichten</span></span> <span aria-hidden="true">&rarr;</span>
+          </a>
+        ) : (
+          <span class="next page-numbers placeholder" aria-hidden="true">
+            <span class="nav-next-text">Oudere <span class="nav-short">berichten</span></span> <span aria-hidden="true">&rarr;</span>
+          </span>
+        )}
+      </div>
+    </nav>
+  </div>
+)}

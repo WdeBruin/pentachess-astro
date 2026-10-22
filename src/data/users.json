@@ -1,0 +1,106 @@
+[
+  {
+    "id": 3,
+    "name": "Herbert Eppinga",
+    "url": "",
+    "description": "",
+    "link": "https://www.pentachess.nl/author/heppinga/",
+    "slug": "heppinga",
+    "avatar_urls": {
+      "24": "https://secure.gravatar.com/avatar/a83146ca80fbe8309f810c9e033df74d?s=24&d=mm&r=g",
+      "48": "https://secure.gravatar.com/avatar/a83146ca80fbe8309f810c9e033df74d?s=48&d=mm&r=g",
+      "96": "https://secure.gravatar.com/avatar/a83146ca80fbe8309f810c9e033df74d?s=96&d=mm&r=g"
+    },
+    "meta": [],
+    "_links": {
+      "self": [
+        {
+          "href": "https://www.pentachess.nl/wp-json/wp/v2/users/3"
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://www.pentachess.nl/wp-json/wp/v2/users"
+        }
+      ]
+    }
+  },
+  {
+    "id": 2,
+    "name": "Marcel Klein",
+    "url": "",
+    "description": "",
+    "link": "https://www.pentachess.nl/author/mklein/",
+    "slug": "mklein",
+    "avatar_urls": {
+      "24": "https://secure.gravatar.com/avatar/190fa0cfa35757c75836aa0354eefb80?s=24&d=mm&r=g",
+      "48": "https://secure.gravatar.com/avatar/190fa0cfa35757c75836aa0354eefb80?s=48&d=mm&r=g",
+      "96": "https://secure.gravatar.com/avatar/190fa0cfa35757c75836aa0354eefb80?s=96&d=mm&r=g"
+    },
+    "meta": [],
+    "_links": {
+      "self": [
+        {
+          "href": "https://www.pentachess.nl/wp-json/wp/v2/users/2"
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://www.pentachess.nl/wp-json/wp/v2/users"
+        }
+      ]
+    }
+  },
+  {
+    "id": 5,
+    "name": "Redactie",
+    "url": "",
+    "description": "",
+    "link": "https://www.pentachess.nl/author/msmink/",
+    "slug": "redactie",
+    "avatar_urls": {
+      "24": "https://secure.gravatar.com/avatar/56fd59080b28e5ebcf311ca6c098a5a6?s=24&d=mm&r=g",
+      "48": "https://secure.gravatar.com/avatar/56fd59080b28e5ebcf311ca6c098a5a6?s=48&d=mm&r=g",
+      "96": "https://secure.gravatar.com/avatar/56fd59080b28e5ebcf311ca6c098a5a6?s=96&d=mm&r=g"
+    },
+    "meta": [],
+    "_links": {
+      "self": [
+        {
+          "href": "https://www.pentachess.nl/wp-json/wp/v2/users/5"
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://www.pentachess.nl/wp-json/wp/v2/users"
+        }
+      ]
+    }
+  },
+  {
+    "id": 1,
+    "name": "Wouter de Bruin",
+    "url": "https://www.pentachess.nl",
+    "description": "",
+    "link": "https://www.pentachess.nl/author/admin/",
+    "slug": "admin",
+    "avatar_urls": {
+      "24": "https://secure.gravatar.com/avatar/c8762571e4893a3ae63349a194d5cf39?s=24&d=mm&r=g",
+      "48": "https://secure.gravatar.com/avatar/c8762571e4893a3ae63349a194d5cf39?s=48&d=mm&r=g",
+      "96": "https://secure.gravatar.com/avatar/c8762571e4893a3ae63349a194d5cf39?s=96&d=mm&r=g"
+    },
+    "meta": [],
+    "_links": {
+      "self": [
+        {
+          "href": "https://www.pentachess.nl/wp-json/wp/v2/users/1"
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://www.pentachess.nl/wp-json/wp/v2/users"
+        }
+      ]
+    }
+  }
+]

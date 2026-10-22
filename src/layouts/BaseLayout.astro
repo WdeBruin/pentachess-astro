@@ -1,0 +1,49 @@
+---
+import Header from '../components/Header.astro';
+import inlineStyles from '../data/inline-styles.json';
+
+interface Props {
+  title: string;
+  bodyClass?: string;
+}
+
+const {
+  title,
+  bodyClass = 'page-template-default page custom-background wp-custom-logo wp-embed-responsive singular missing-post-thumbnail has-no-pagination not-showing-comments show-avatars footer-top-visible'
+} = Astro.props;
+---
+
+<!DOCTYPE html>
+<html class="js" lang="nl-NL">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+
+    <link rel="stylesheet" href="/css/block-library.css" media="all" />
+    <link rel="stylesheet" href="/css/twentytwenty.css" media="all" />
+    <link rel="stylesheet" href="/css/child-style.css" media="all" />
+    <link rel="stylesheet" href="/css/print.css" media="print" />
+
+    <style id="global-styles-inline-css" set:html={inlineStyles['global-styles-inline-css']} />
+    <style id="twentytwenty-style-inline-css" set:html={inlineStyles['twentytwenty-style-inline-css']} />
+    <style id="custom-background-css" set:html={inlineStyles['custom-background-css']} />
+    <style id="core-block-supports-inline-css" set:html={inlineStyles['core-block-supports-inline-css']} />
+
+    <link rel="icon" href="/wp-content/uploads/2020/04/cropped-pentachess_logo-32x32.png" sizes="32x32" />
+    <link rel="icon" href="/wp-content/uploads/2020/04/cropped-pentachess_logo-192x192.png" sizes="192x192" />
+    <link rel="apple-touch-icon" href="/wp-content/uploads/2020/04/cropped-pentachess_logo-180x180.png" />
+    <meta name="msapplication-TileImage" content="/wp-content/uploads/2020/04/cropped-pentachess_logo-270x270.png" />
+
+    <script src="/js/twentytwenty-index.js" async></script>
+  </head>
+  <body class={bodyClass}>
+    <a class="skip-link screen-reader-text" href="#site-content">Overslaan naar de inhoud</a>
+
+    <Header currentPath={Astro.url.pathname} />
+
+    <main id="site-content" role="main">
+      <slot />
+    </main>
+  </body>
+</html>

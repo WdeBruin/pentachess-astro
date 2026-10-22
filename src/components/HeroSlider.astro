@@ -1,0 +1,215 @@
+---
+const slides = [
+  { src: '/wp-content/uploads/2020/04/slide1.jpg', alt: 'Pentachess schaken slide 1' },
+  { src: '/wp-content/uploads/2020/04/slide2.jpg', alt: 'Pentachess schaken slide 2' },
+  { src: '/wp-content/uploads/2020/04/slide3.jpg', alt: 'Pentachess schaken slide 3' }
+];
+---
+
+<div class="hero-slider-wrapper">
+  <div class="hero-slider-viewport" id="hero-slider">
+    <div class="hero-slider-track" id="hero-slider-track">
+      {slides.map((slide, index) => (
+        <div class="hero-slide" data-index={index}>
+          <img src={slide.src} alt={slide.alt} loading={index === 0 ? 'eager' : 'lazy'} decoding="async" />
+        </div>
+      ))}
+    </div>
+
+    <button type="button" class="slider-arrow slider-arrow-prev" id="slider-arrow-prev" aria-label="Vorige slide">
+      <svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+        <path d="M11.433 15.992L22.69 5.712c.393-.39.393-1.03 0-1.42-.393-.39-1.03-.39-1.423 0l-11.98 10.94c-.21.21-.3.49-.285.76-.015.28.075.56.284.77l11.98 10.94c.393.39 1.03.39 1.424 0 .393-.4.393-1.03 0-1.42l-11.257-10.29" fill="#ffffff" opacity="0.8" fill-rule="evenodd"/>
+      </svg>
+    </button>
+
+    <button type="button" class="slider-arrow slider-arrow-next" id="slider-arrow-next" aria-label="Volgende slide">
+      <svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+        <path d="M10.722 4.293c-.394-.39-1.032-.39-1.427 0-.393.39-.393 1.03 0 1.42l11.283 10.28-11.283 10.29c-.393.39-.393 1.02 0 1.42.395.39 1.033.39 1.427 0l12.007-10.94c.21-.21.3-.49.284-.77.014-.27-.076-.55-.286-.76L10.72 4.293z" fill="#ffffff" opacity="0.8" fill-rule="evenodd"/>
+      </svg>
+    </button>
+  </div>
+</div>
+
+<style>
+  .hero-slider-wrapper {
+    position: relative;
+    width: 100vw;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    overflow: hidden;
+    background-color: #000;
+  }
+
+  .hero-slider-viewport {
+    position: relative;
+    width: 100%;
+    max-width: 3000px;
+    margin: 0 auto;
+    aspect-ratio: 1200 / 500;
+    overflow: hidden;
+  }
+
+  .hero-slider-track {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    transition: transform 800ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    will-change: transform;
+  }
+
+  .hero-slide {
+    flex: 0 0 100%;
+    min-width: 100%;
+    height: 100%;
+    position: relative;
+  }
+
+  .hero-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 50%;
+    display: block;
+    user-select: none;
+    pointer-events: none;
+  }
+
+  .slider-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.2s ease;
+    outline: none;
+  }
+
+  .slider-arrow svg {
+    display: block;
+    filter: drop-shadow(0 0 3px rgba(0,0,0,0.5));
+  }
+
+  .slider-arrow:hover svg path {
+    opacity: 1;
+  }
+
+  .slider-arrow-prev {
+    left: 15px;
+  }
+
+  .slider-arrow-next {
+    right: 15px;
+  }
+
+  @media (max-width: 700px), (orientation: landscape) and (max-width: 900px) {
+    .slider-arrow {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  function setupSlider() {
+    const track = document.getElementById('hero-slider-track');
+    const prevBtn = document.getElementById('slider-arrow-prev');
+    const nextBtn = document.getElementById('slider-arrow-next');
+    const slider = document.getElementById('hero-slider');
+
+    if (!track || !prevBtn || !nextBtn || !slider) return;
+
+    let currentIndex = 0;
+    const totalSlides = 3;
+    let autoplayInterval;
+
+    function goToSlide(index) {
+      currentIndex = (index + totalSlides) % totalSlides;
+      track.style.transform = `translateX(-${currentIndex * 100}%)`;
+    }
+
+    function nextSlide() {
+      goToSlide(currentIndex + 1);
+    }
+
+    function prevSlide() {
+      goToSlide(currentIndex - 1);
+    }
+
+    function startAutoplay() {
+      stopAutoplay();
+      autoplayInterval = setInterval(nextSlide, 8000);
+    }
+
+    function stopAutoplay() {
+      if (autoplayInterval) {
+        clearInterval(autoplayInterval);
+      }
+    }
+
+    nextBtn.addEventListener('click', () => {
+      nextSlide();
+      startAutoplay();
+    });
+
+    prevBtn.addEventListener('click', () => {
+      prevSlide();
+      startAutoplay();
+    });
+
+    slider.addEventListener('mouseenter', stopAutoplay);
+    slider.addEventListener('mouseleave', startAutoplay);
+
+    // Keyboard navigation
+    slider.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight') {
+        nextSlide();
+        startAutoplay();
+      } else if (e.key === 'ArrowLeft') {
+        prevSlide();
+        startAutoplay();
+      }
+    });
+
+    // Touch support
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    slider.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+      stopAutoplay();
+    }, { passive: true });
+
+    slider.addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      handleSwipe();
+      startAutoplay();
+    }, { passive: true });
+
+    function handleSwipe() {
+      const diff = touchStartX - touchEndX;
+      if (Math.abs(diff) > 40) {
+        if (diff > 0) {
+          nextSlide();
+        } else {
+          prevSlide();
+        }
+      }
+    }
+
+    startAutoplay();
+  }
+
+  // Setup on page load and on view transitions if any
+  document.addEventListener('DOMContentLoaded', setupSlider);
+  if (document.readyState === 'complete' || document.readyState === 'interactive') {
+    setupSlider();
+  }
+</script>

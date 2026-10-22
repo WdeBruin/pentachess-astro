@@ -1,0 +1,134 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HeroSlider from '../components/HeroSlider.astro';
+import { getCollection } from 'astro:content';
+
+const allPosts = await getCollection('posts');
+const latestPosts = allPosts
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+  .slice(0, 3);
+
+function formatDutchDate(date: Date) {
+  return new Intl.DateTimeFormat('nl-NL', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+  }).format(date);
+}
+
+function renderExcerpt(excerpt: string | undefined, title: string, slug: string) {
+  if (!excerpt) return '';
+  let clean = excerpt.trim();
+  const hasMore = clean.includes('[&hellip;]') || clean.includes('…') || clean.endsWith('...');
+  clean = clean.replace(/\[&hellip;\]/g, '…').replace(/\.\.\.$/g, '…');
+  
+  if (hasMore) {
+    return `${clean} <a href="/nieuws/${slug}/" rel="noopener noreferrer">Lees meer<span class="screen-reader-text">: ${title}</span></a>`;
+  }
+  return clean;
+}
+---
+
+<BaseLayout
+  title="Pentachess"
+  bodyClass="home page-template-default page page-id-79 custom-background wp-custom-logo wp-embed-responsive singular missing-post-thumbnail has-no-pagination not-showing-comments show-avatars footer-top-visible"
+>
+  <article class="post-79 page type-page status-publish hentry" id="post-79">
+    <header class="entry-header has-text-align-center header-footer-group">
+      <div class="entry-header-inner section-inner medium">
+        <h1 class="entry-title">Home</h1>
+      </div>
+    </header>
+
+    <div class="post-inner thin">
+      <div class="entry-content">
+        <HeroSlider />
+
+        <h3 class="has-text-align-left has-text-color wp-block-heading" style="color:#006400">Laatste nieuws</h3>
+
+        <ul class="wp-block-latest-posts__list has-dates alignfull wp-block-latest-posts">
+          {latestPosts.map((post) => (
+            <li>
+              <a class="wp-block-latest-posts__post-title" href={`/nieuws/${post.slug}/`}>{post.data.title}</a>
+              <time datetime={post.data.date.toISOString()} class="wp-block-latest-posts__post-date">
+                {formatDutchDate(post.data.date)}
+              </time>
+              <div class="wp-block-latest-posts__post-excerpt" set:html={renderExcerpt(post.data.excerpt, post.data.title, post.slug)} />
+            </li>
+          ))}
+        </ul>
+
+        <h3 class="has-text-color wp-block-heading" style="color:#006400">Aandachtsgebieden</h3>
+
+        <div class="wp-block-columns is-layout-flex wp-container-core-columns-layout-2 wp-block-columns-is-layout-flex">
+          <div class="wp-block-column is-layout-flow wp-block-column-is-layout-flow">
+            <h5 class="has-text-color wp-block-heading" style="color:#006400">Toernooien</h5>
+            <p>De oorsprong van Pentachess is de organisatie van de succesvolle Merwede jeugdviertallen competitie. Deze samenwerking tussen vijf verenigingen is uitgegroeid tot deze stichting. Dit wordt doorgezet met het organiseren van toernooien en bieden van toernooibegeleiding.</p>
+          </div>
+
+          <div class="wp-block-column is-layout-flow wp-block-column-is-layout-flow">
+            <h5 class="has-text-color wp-block-heading" style="color:#006400">Schoolschaak</h5>
+            <p>Door middel van schoolschaak activiteiten wil Pentachess zo veel mogelijk jeugd in aanraking te laten komen met schaken. Scholen die schaakles willen geven kunnen bij Pentachess terecht voor trainers. Trainers worden geholpen met standaard lespakketten en trainerscursussen.</p>
+          </div>
+
+          <div class="wp-block-column is-layout-flow wp-block-column-is-layout-flow">
+            <h5 class="has-text-color wp-block-heading" style="color:#006400">Schaakles</h5>
+            <p>Voor gemotiveerde jeugdschakers, vanuit de verenigingen of daarbuiten, biedt Pentachess trainingen aan. Schakers uit de verenigingen worden opgeleid door Pentachess om deze trainingen te kunnen geven.</p>
+          </div>
+        </div>
+
+        <h3 class="has-text-color wp-block-heading" style="color:#006400">Ambassadeurs</h3>
+
+        <div class="wp-block-columns is-layout-flex wp-container-core-columns-layout-3 wp-block-columns-is-layout-flex">
+          <div class="wp-block-column is-layout-flow wp-block-column-is-layout-flow">
+            <figure class="wp-block-image size-large">
+              <img loading="lazy" decoding="async" width="700" height="400" src="/wp-content/uploads/2020/04/liamvrolijk.png" alt="" class="wp-image-119" />
+            </figure>
+            <h5 class="has-text-align-center has-text-color wp-block-heading" style="color:#006400">Liam Vrolijk</h5>
+            <p class="has-text-align-center">Liam Vrolijk is een Nederlandse top jeugdschaker en internationaal grootmeester. Als ambassadeur van stichting Pentachess hoopt hij meer kinderen geinteresseerd te krijgen in het schaakspel.</p>
+          </div>
+
+          <div class="wp-block-column is-layout-flow wp-block-column-is-layout-flow">
+            <figure class="wp-block-image size-large">
+              <img loading="lazy" decoding="async" width="700" height="400" src="/wp-content/uploads/2020/04/haast.png" alt="" class="wp-image-120" />
+            </figure>
+            <h5 class="has-text-align-center has-text-color wp-block-heading" style="color:#006400">Anne Haast</h5>
+            <p class="has-text-align-center">Anne Haast is een Nederlandse topschaakster en WGM(Woman Grandmaster). Ze heeft viermaal het NK schaken voor vrouwen gewonnen. Via de Chessqueens maar ook bijvoorbeeld stichting Pathena is Anne enthousiast bezig met het bevorderen van jeugdschaak. Onder meer door het geven van trainingen.</p>
+          </div>
+        </div>
+
+        <h3 class="has-text-color wp-block-heading" style="color:#006400">Partners&nbsp;en&nbsp;sponsors</h3>
+
+        <div class="wp-block-columns is-layout-flex wp-container-core-columns-layout-4 wp-block-columns-is-layout-flex">
+          <div class="wp-block-column is-layout-flow wp-block-column-is-layout-flow">
+            <figure class="wp-block-image size-large">
+              <img loading="lazy" decoding="async" width="700" height="400" src="/wp-content/uploads/2020/04/mc-forte.png" alt="" class="wp-image-128" />
+            </figure>
+            <h5 class="has-text-align-center has-text-color wp-block-heading" style="color:#006400">MC Forte</h5>
+            <p class="has-text-align-center">MC&nbsp;Forte&nbsp;heeft&nbsp;veel&nbsp;ervaring&nbsp;in&nbsp;het&nbsp;<br>aanbieden&nbsp;van&nbsp;muziek&nbsp;clinics&nbsp;en&nbsp;lessen&nbsp;<br>aan&nbsp;basisscholen&nbsp;in&nbsp;de&nbsp;regio.&nbsp;We&nbsp;werken&nbsp;<br>samen&nbsp;met&nbsp;MC&nbsp;Forte&nbsp;om&nbsp;een&nbsp;goed&nbsp;<br>schaakaanbod&nbsp;te&nbsp;kunnen&nbsp;aanbieden&nbsp;aan&nbsp;<br>basisscholen,&nbsp;voortbouwend&nbsp;op&nbsp;de&nbsp;<br>ervaring&nbsp;van&nbsp;MC&nbsp;Forte.</p>
+          </div>
+
+          <div class="wp-block-column is-layout-flow wp-block-column-is-layout-flow">
+            <figure class="wp-block-image size-large">
+              <img loading="lazy" decoding="async" width="370" height="245" src="/wp-content/uploads/2020/04/gemeente-vijfheerenlanden.jpg" alt="" class="wp-image-129" />
+            </figure>
+            <h5 class="has-text-align-center has-text-color wp-block-heading" style="color:#006400">Gemeente Vijfheerenlanden</h5>
+            <p class="has-text-align-center">De&nbsp;gemeente&nbsp;vijfheerenlanden&nbsp;steunt&nbsp;de<br>stichting&nbsp;Pentachess.</p>
+          </div>
+        </div>
+
+        <figure class="wp-block-image size-large">
+          <img loading="lazy" decoding="async" width="339" height="190" src="/wp-content/uploads/2020/07/Knipsel.jpg" alt="" class="wp-image-187" />
+          <figcaption>Onze statuten zijn gepasseerd bij <a href="http://denotarissen.nl">http://denotarissen.nl</a></figcaption>
+        </figure>
+
+        <figure class="wp-block-image size-large">
+          <a href="http://www.greens-international.nl/index.html">
+            <img loading="lazy" decoding="async" width="303" height="194" src="/wp-content/uploads/2021/03/greens.jpg" alt="" class="wp-image-234" />
+          </a>
+          <figcaption>Wegwijzer in duurzaamheid: milieu, arbo en kwaliteit!<br>Greens International ondersteunt met de ZOOM accounts voor de online trainingen!</figcaption>
+        </figure>
+      </div>
+    </div>
+  </article>
+</BaseLayout>

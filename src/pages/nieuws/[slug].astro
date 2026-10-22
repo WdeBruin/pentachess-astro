@@ -1,0 +1,42 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PostArticle from '../../components/PostArticle.astro';
+import { getCollection, type CollectionEntry } from 'astro:content';
+
+export async function getStaticPaths() {
+  const allPosts = await getCollection('posts');
+  // Sort descending by date (newest first)
+  const sortedPosts = allPosts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+
+  return sortedPosts.map((post, index) => {
+    // Newer post is at index - 1, older post is at index + 1
+    const nextPost = index > 0 ? sortedPosts[index - 1] : null;
+    const prevPost = index < sortedPosts.length - 1 ? sortedPosts[index + 1] : null;
+
+    return {
+      params: { slug: post.slug },
+      props: {
+        post,
+        prevPost,
+        nextPost
+      }
+    };
+  });
+}
+
+interface Props {
+  post: CollectionEntry<'posts'>;
+  prevPost: CollectionEntry<'posts'> | null;
+  nextPost: CollectionEntry<'posts'> | null;
+}
+
+const { post, prevPost, nextPost } = Astro.props;
+const postId = post.data.id ? post.data.id : post.slug;
+---
+
+<BaseLayout
+  title={`${post.data.title} – Pentachess`}
+  bodyClass={`post-template-default single single-post postid-${postId} single-format-standard custom-background wp-custom-logo wp-embed-responsive singular missing-post-thumbnail has-single-pagination showing-comments show-avatars footer-top-visible`}
+>
+  <PostArticle post={post} isSingle={true} prevPost={prevPost} nextPost={nextPost} />
+</BaseLayout>
