@@ -1,0 +1,151 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  post: CollectionEntry<'posts'>;
+}
+
+const { post } = Astro.props;
+
+function extractFirstImage(body: string | undefined): string {
+  if (!body) return '/wp-content/uploads/2020/04/slide1.jpg';
+  const htmlMatch = body.match(/<img[^>]+src=["']([^"']+)["']/i);
+  if (htmlMatch && htmlMatch[1]) return htmlMatch[1];
+  const mdMatch = body.match(/!\[[^\]]*\]\(([^)]+)\)/);
+  if (mdMatch && mdMatch[1]) return mdMatch[1];
+  return '/wp-content/uploads/2020/04/slide1.jpg';
+}
+
+function formatShortDutchDate(date: Date): string {
+  return new Intl.DateTimeFormat('nl-NL', {
+    day: 'numeric',
+    month: 'short',
+    year: 'numeric',
+  }).format(date);
+}
+
+function cleanExcerpt(excerpt: string | undefined): string {
+  if (!excerpt) return '';
+  return excerpt
+    .replace(/\[&hellip;\]/g, '…')
+    .replace(/&#8220;|&#8221;/g, '"')
+    .replace(/&#8211;/g, '–')
+    .trim();
+}
+
+const thumbnail = extractFirstImage(post.body);
+const formattedDate = formatShortDutchDate(post.data.date);
+const excerptText = cleanExcerpt(post.data.excerpt);
+---
+
+<article class="news-card">
+  <a href={`/nieuws/${post.slug}/`} class="news-card-img-link" tabindex="-1" aria-hidden="true">
+    <img
+      src={thumbnail}
+      alt={post.data.title}
+      loading="lazy"
+      decoding="async"
+      class="news-card-img"
+    />
+  </a>
+  <div class="news-card-body">
+    <time datetime={post.data.date.toISOString()} class="news-card-date">
+      {formattedDate}
+    </time>
+    <h3 class="news-card-title">
+      <a href={`/nieuws/${post.slug}/`}>{post.data.title}</a>
+    </h3>
+    {excerptText && <p class="news-card-excerpt">{excerptText}</p>}
+    <a href={`/nieuws/${post.slug}/`} class="news-card-more">
+      Lees meer <span aria-hidden="true">&rarr;</span>
+    </a>
+  </div>
+</article>
+
+<style>
+  .news-card {
+    background-color: var(--color-surface);
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-card);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .news-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-card-hover);
+  }
+
+  .news-card-img-link {
+    display: block;
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+    background-color: var(--color-bg-soft);
+  }
+
+  .news-card-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.35s ease;
+  }
+
+  .news-card:hover .news-card-img {
+    transform: scale(1.04);
+  }
+
+  .news-card-body {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+  }
+
+  .news-card-date {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--color-text-secondary);
+    margin-bottom: 0.4rem;
+  }
+
+  .news-card-title {
+    font-size: 1.15rem;
+    font-weight: 800;
+    line-height: 1.35;
+    margin-bottom: 0.65rem;
+  }
+
+  .news-card-title a {
+    color: var(--color-text-primary);
+    text-decoration: none;
+  }
+
+  .news-card-title a:hover {
+    color: var(--color-primary-blue);
+  }
+
+  .news-card-excerpt {
+    font-size: 0.925rem;
+    color: var(--color-text-secondary);
+    line-height: 1.55;
+    margin-bottom: 1.25rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    flex-grow: 1;
+  }
+
+  .news-card-more {
+    font-weight: 700;
+    font-size: 0.92rem;
+    color: var(--color-primary-blue);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    margin-top: auto;
+  }
+</style>

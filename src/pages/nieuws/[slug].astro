@@ -31,12 +31,12 @@ interface Props {
 }
 
 const { post, prevPost, nextPost } = Astro.props;
-const postId = post.data.id ? post.data.id : post.slug;
 ---
 
-<BaseLayout
-  title={`${post.data.title} – Pentachess`}
-  bodyClass={`post-template-default single single-post postid-${postId} single-format-standard custom-background wp-custom-logo wp-embed-responsive singular missing-post-thumbnail has-single-pagination showing-comments show-avatars footer-top-visible`}
->
-  <PostArticle post={post} isSingle={true} prevPost={prevPost} nextPost={nextPost} />
+<BaseLayout title={`${post.data.title} – Pentachess`}>
+  <div class="section">
+    <div class="container-narrow">
+      <PostArticle post={post} isSingle={true} prevPost={prevPost} nextPost={nextPost} />
+    </div>
+  </div>
 </BaseLayout>

@@ -45,22 +45,13 @@ interface Props {
 const { authorName, authorSlug, posts } = Astro.props;
 ---
 
-<BaseLayout
-  title={`${authorName}, auteur bij Pentachess`}
-  bodyClass={`archive author author-${authorSlug} custom-background wp-custom-logo wp-embed-responsive hfeed has-no-pagination showing-comments show-avatars footer-top-visible`}
->
-  <header class="archive-header has-text-align-center header-footer-group">
-    <div class="archive-header-inner section-inner medium">
-      <h1 class="archive-title"><span class="color-accent">Auteur: </span>{authorName}</h1>
+<BaseLayout title={`${authorName}, auteur bij Pentachess`}>
+  <div class="section">
+    <div class="container-narrow">
+      <h1 class="section-title">Auteur: {authorName}</h1>
+      {posts.map((post) => (
+        <PostArticle post={post} isSingle={false} />
+      ))}
     </div>
-  </header>
-
-  {posts.map((post, idx) => (
-    <>
-      <PostArticle post={post} isSingle={false} />
-      {idx < posts.length - 1 && (
-        <hr class="post-separator styled-separator is-style-wide section-inner" aria-hidden="true" />
-      )}
-    </>
-  ))}
+  </div>
 </BaseLayout>

@@ -37,18 +37,15 @@ interface Props {
 const { pagePosts, currentPage, totalPages } = Astro.props;
 ---
 
-<BaseLayout
-  title={`Nieuws – Pagina ${currentPage} – Pentachess`}
-  bodyClass="blog custom-background wp-custom-logo wp-embed-responsive has-no-pagination showing-comments show-avatars footer-top-visible"
->
-  {pagePosts.map((post, idx) => (
-    <>
-      <PostArticle post={post} isSingle={false} />
-      {idx < pagePosts.length - 1 && (
-        <hr class="post-separator styled-separator is-style-wide section-inner" aria-hidden="true" />
-      )}
-    </>
-  ))}
+<BaseLayout title={`Nieuws – Pagina ${currentPage} – Pentachess`}>
+  <div class="section">
+    <div class="container-narrow">
+      <h1 class="section-title">Laatste Nieuws</h1>
+      {pagePosts.map((post) => (
+        <PostArticle post={post} isSingle={false} />
+      ))}
 
-  <Pagination currentPage={currentPage} totalPages={totalPages} baseUrl="/nieuws/" />
+      <Pagination currentPage={currentPage} totalPages={totalPages} baseUrl="/nieuws/" />
+    </div>
+  </div>
 </BaseLayout>

@@ -1,0 +1,209 @@
+---
+import Button from './Button.astro';
+
+interface Props {
+  title: string;
+  subtitle: string;
+  primaryCtaText?: string;
+  primaryCtaHref?: string;
+  secondaryCtaText?: string;
+  secondaryCtaHref?: string;
+  imageSrc: string;
+  imageAlt: string;
+}
+
+const {
+  title,
+  subtitle,
+  primaryCtaText = 'Bekijk Toernooien',
+  primaryCtaHref = '/toernooien/',
+  secondaryCtaText = 'Onze Schaaklessen',
+  secondaryCtaHref = '/schaakles/',
+  imageSrc,
+  imageAlt,
+} = Astro.props;
+---
+
+<section class="hero-wave-section">
+  <!-- Layered organic wave background -->
+  <div class="hero-bg-shapes" aria-hidden="true">
+    <svg class="hero-bg-svg" viewBox="0 0 1440 600" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="heroGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#1E88E5" />
+          <stop offset="58%" stop-color="#1996B4" />
+          <stop offset="100%" stop-color="#4CAF50" />
+        </linearGradient>
+      </defs>
+      <rect width="1440" height="600" fill="url(#heroGrad)" />
+      <path
+        d="M0,160 C320,40 520,300 900,140 C1150,40 1320,120 1440,80 L1440,600 L0,600 Z"
+        fill="#4CAF50"
+        fill-opacity="0.28"
+      />
+      <path
+        d="M0,340 C380,220 720,460 1120,260 C1280,180 1380,220 1440,200 L1440,600 L0,600 Z"
+        fill="#1565C0"
+        fill-opacity="0.22"
+      />
+    </svg>
+  </div>
+
+  <div class="container hero-grid">
+    <div class="hero-content">
+      <h1 class="hero-title">{title}</h1>
+      <p class="hero-subtitle">{subtitle}</p>
+      <div class="hero-actions">
+        {primaryCtaText && (
+          <Button href={primaryCtaHref} variant="primary">
+            {primaryCtaText}
+          </Button>
+        )}
+        {secondaryCtaText && (
+          <Button href={secondaryCtaHref} variant="outline-white">
+            {secondaryCtaText}
+          </Button>
+        )}
+      </div>
+    </div>
+
+    <div class="hero-illustration-wrap">
+      <div class="hero-illustration-card">
+        <img
+          src={imageSrc}
+          alt={imageAlt}
+          width="560"
+          height="380"
+          class="hero-illustration-img"
+          decoding="async"
+          fetchpriority="high"
+        />
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom SVG Curved River Wave Divider -->
+  <div class="hero-wave-bottom" aria-hidden="true">
+    <svg viewBox="0 0 1440 110" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path
+        d="M0,48 C280,115 560,110 860,48 C1120,-6 1310,18 1440,56 L1440,110 L0,110 Z"
+        fill="#4CAF50"
+        fill-opacity="0.45"
+      />
+      <path
+        d="M0,64 C320,120 640,96 960,40 C1180,2 1340,28 1440,68 L1440,110 L0,110 Z"
+        fill="#F4F9F4"
+      />
+    </svg>
+  </div>
+</section>
+
+<style>
+  .hero-wave-section {
+    position: relative;
+    overflow: hidden;
+    padding: 3.5rem 0 6.5rem;
+    color: #FFFFFF;
+  }
+
+  @media (min-width: 960px) {
+    .hero-wave-section {
+      padding: 4.5rem 0 7.5rem;
+    }
+  }
+
+  .hero-bg-shapes {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+
+  .hero-bg-svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  .hero-grid {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: 1fr;
+    align-items: center;
+    gap: 2.5rem;
+  }
+
+  @media (min-width: 960px) {
+    .hero-grid {
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 3rem;
+    }
+  }
+
+  .hero-title {
+    color: #FFFFFF;
+    font-size: clamp(2.25rem, 4.5vw, 3.35rem);
+    font-weight: 800;
+    line-height: 1.12;
+    margin-bottom: 1rem;
+    letter-spacing: -0.01em;
+  }
+
+  .hero-subtitle {
+    color: rgba(255, 255, 255, 0.92);
+    font-size: clamp(1.05rem, 1.8vw, 1.2rem);
+    line-height: 1.6;
+    margin-bottom: 2rem;
+    max-width: 540px;
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .hero-illustration-wrap {
+    display: flex;
+    justify-content: center;
+  }
+
+  .hero-illustration-card {
+    background: rgba(255, 255, 255, 0.14);
+    padding: 0.65rem;
+    border-radius: 24px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.16);
+    backdrop-filter: blur(6px);
+    max-width: 540px;
+    width: 100%;
+  }
+
+  .hero-illustration-img {
+    width: 100%;
+    height: auto;
+    border-radius: 18px;
+    object-fit: cover;
+    display: block;
+  }
+
+  .hero-wave-bottom {
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    right: 0;
+    z-index: 1;
+    line-height: 0;
+  }
+
+  .hero-wave-bottom svg {
+    width: 100%;
+    height: 75px;
+    display: block;
+  }
+
+  @media (min-width: 960px) {
+    .hero-wave-bottom svg {
+      height: 105px;
+    }
+  }
+</style>

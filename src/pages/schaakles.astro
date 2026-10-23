@@ -1,0 +1,59 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HeroSection from '../components/HeroSection.astro';
+import Button from '../components/Button.astro';
+---
+
+<BaseLayout title="Schaakles & Trainingen – Pentachess">
+  <HeroSection
+    title="Schaakles voor elk niveau!"
+    subtitle="Voor gemotiveerde jeugdschakers én aankomende trainers biedt Stichting Pentachess online trainingen, stertrainingen en KNSB-erkende trainerscursussen."
+    primaryCtaText="Meld je aan voor les"
+    primaryCtaHref="mailto:pentachess@gmail.com?subject=Aanmelding%20Schaakles"
+    secondaryCtaText="Schoolschaak"
+    secondaryCtaHref="/schoolschaak/"
+    imageSrc="/images/redesign/hero-schoolschaak.png"
+    imageAlt="Schaaktrainer geeft les aan jeugdspelers"
+  />
+
+  <section class="section">
+    <div class="container-narrow">
+      <h2 class="section-title">Ons Trainingsaanbod</h2>
+      <div class="programs-grid">
+        <article class="surface-card">
+          <h3>Jeugd- & Stertraining</h3>
+          <p>
+            Voor gemotiveerde jeugdschakers vanuit de aangesloten verenigingen of daarbuiten verzorgt Pentachess uitdagende trainingen, waaronder Stertraining door WGM Anne Haast en online teambattles op Lichess.
+          </p>
+          <Button href="mailto:pentachess@gmail.com?subject=Interesse%20Jeugdtraining" variant="secondary" size="sm" showArrow={true}>
+            Informeer naar tijden
+          </Button>
+        </article>
+
+        <article class="surface-card">
+          <h3>Opleiding tot Schaaktrainer</h3>
+          <p>
+            Schakers en leerkrachten uit de regio worden door Pentachess opgeleid om zelfstandig schaaktraining te geven op scholen en clubs, ondersteund door onze jaarlijkse Pentachess Trainerscongres-dagen en Chessity.
+          </p>
+          <Button href="/nieuws/" variant="outline-blue" size="sm" showArrow={true}>
+            Lees over onze trainerscursussen
+          </Button>
+        </article>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .programs-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  @media (min-width: 720px) {
+    .programs-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+</style>

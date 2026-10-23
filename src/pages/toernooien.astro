@@ -1,0 +1,297 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HeroSection from '../components/HeroSection.astro';
+import Button from '../components/Button.astro';
+import { calendarEvents, viertallenStandings } from '../data/tournaments';
+---
+
+<BaseLayout title="Jeugdtoernooien & Competities – Pentachess">
+  <!-- 1. Hero Section -->
+  <HeroSection
+    title="Jeugdtoernooien & Competities"
+    subtitle="Ontdek de magie van het schaakspel via onze regionale viertallencompetitie, snelschaaktoernooien en online teambattles."
+    primaryCtaText="Bekijk Toernooien"
+    primaryCtaHref="#kalender"
+    secondaryCtaText="Onze Schaaklessen"
+    secondaryCtaHref="/schaakles/"
+    imageSrc="/images/redesign/hero-toernooien.png"
+    imageAlt="Kinderen vieren feest met een gouden trofee en schaakbord"
+  />
+
+  <!-- 2. Section: Toernooien 2025-2026 (vorig seizoen) -->
+  <section class="section" id="kalender">
+    <div class="container-narrow">
+      <h2 class="section-title">Toernooien 2025-2026 (vorig seizoen)</h2>
+
+      <div class="calendar-stack">
+        {calendarEvents.map((ev) => (
+          <div class="calendar-row">
+            <div class="calendar-row-left">
+              <span class={`event-badge badge-${ev.badgeColor}`}>{ev.badge}</span>
+              <span class="event-title">
+                <strong>{ev.dateLabel} – {ev.title}</strong>
+              </span>
+            </div>
+            <div class="calendar-row-right">
+              <a
+                href={ev.href}
+                class="btn btn-secondary btn-sm"
+                {...(ev.href.startsWith('http') ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+              >
+                {ev.ctaLabel}
+              </a>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. Section: Einduitslagen Viertallencompetitie -->
+  <section class="section" id="uitslagen" style="padding-top: 1rem;">
+    <div class="container-narrow">
+      <div class="surface-card results-card">
+        <h2 class="results-heading">Einduitslagen Viertallencompetitie</h2>
+
+        <div class="results-split">
+          <!-- Left: Visual Podium -->
+          <div class="podium-wrapper">
+            <svg viewBox="0 0 320 250" width="300" height="235" xmlns="http://www.w3.org/2000/svg" aria-label="Podium 1e Giessen en Linge 1, 2e Sliedrecht 1, 3e Giessen en Linge 2">
+              <!-- 2nd Place Green Pawn (Left) -->
+              <circle cx="72" cy="92" r="14" fill="#4CAF50" stroke="#1A202C" stroke-width="3" />
+              <path d="M56 145 C58 118 64 108 72 108 C80 108 86 118 88 145 Z" fill="#4CAF50" stroke="#1A202C" stroke-width="3" />
+              <rect x="50" y="142" width="44" height="8" rx="4" fill="#3d9140" stroke="#1A202C" stroke-width="3" />
+
+              <!-- 1st Place Gold Trophy (Center) -->
+              <path d="M134 32 H186 V56 C186 74 172 86 160 86 C148 86 134 74 134 56 Z" fill="#F59E0B" stroke="#1A202C" stroke-width="3" />
+              <path d="M134 40 H122 C122 56 128 62 136 62" fill="none" stroke="#1A202C" stroke-width="3" stroke-linecap="round" />
+              <path d="M186 40 H198 C198 56 192 62 184 62" fill="none" stroke="#1A202C" stroke-width="3" stroke-linecap="round" />
+              <polygon points="160,42 163,50 171,50 165,55 167,63 160,58 153,63 155,55 149,50 157,50" fill="#FEF3C7" stroke="#1A202C" stroke-width="1.5" />
+              <rect x="154" y="86" width="12" height="14" fill="#D97706" stroke="#1A202C" stroke-width="3" />
+              <rect x="140" y="100" width="40" height="10" rx="3" fill="#92400E" stroke="#1A202C" stroke-width="3" />
+
+              <!-- 3rd Place Red/Coral Pawn (Right) -->
+              <circle cx="248" cy="112" r="13" fill="#EF4444" stroke="#1A202C" stroke-width="3" />
+              <path d="M234 162 C236 136 241 126 248 126 C255 126 260 136 262 162 Z" fill="#EF4444" stroke="#1A202C" stroke-width="3" />
+              <rect x="228" y="159" width="40" height="8" rx="4" fill="#DC2626" stroke="#1A202C" stroke-width="3" />
+
+              <!-- Pedestal 2 (Silver/Grey) -->
+              <rect x="32" y="150" width="80" height="80" rx="6" fill="#94A3B8" stroke="#1A202C" stroke-width="3" />
+              <text x="72" y="198" text-anchor="middle" fill="#FFFFFF" font-family="Nunito, sans-serif" font-weight="800" font-size="28">2</text>
+
+              <!-- Pedestal 1 (Gold) -->
+              <rect x="112" y="110" width="96" height="120" rx="6" fill="#FBBF24" stroke="#1A202C" stroke-width="3" />
+              <circle cx="160" cy="168" r="22" fill="#F59E0B" stroke="#FFFFFF" stroke-width="2" />
+              <text x="160" y="177" text-anchor="middle" fill="#FFFFFF" font-family="Nunito, sans-serif" font-weight="800" font-size="26">1</text>
+
+              <!-- Pedestal 3 (Bronze/Light Grey) -->
+              <rect x="208" y="167" width="80" height="63" rx="6" fill="#CBD5E1" stroke="#1A202C" stroke-width="3" />
+              <text x="248" y="208" text-anchor="middle" fill="#FFFFFF" font-family="Nunito, sans-serif" font-weight="800" font-size="26">3</text>
+            </svg>
+
+            <div class="podium-legend">
+              <div><strong>1e:</strong> Giessen en Linge 1 (36 pt)</div>
+              <div><strong>2e:</strong> Sliedrecht 1 (34 pt)</div>
+              <div><strong>3e:</strong> Giessen en Linge 2 (24 pt)</div>
+            </div>
+          </div>
+
+          <!-- Right: Clean Standings Table -->
+          <div class="standings-table-wrap">
+            <table class="standings-table">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Team</th>
+                  <th class="num-col">Punten</th>
+                  <th class="num-col">Totaal</th>
+                </tr>
+              </thead>
+              <tbody>
+                {viertallenStandings.slice(0, 7).map((row) => (
+                  <tr class={row.rank <= 3 ? 'is-top-three' : ''}>
+                    <td class="rank-cell">{row.rank}</td>
+                    <td class="team-cell">
+                      <span class="mini-board-icon" aria-hidden="true">♟</span>
+                      {row.team}
+                    </td>
+                    <td class="num-col">{row.boardPoints}</td>
+                    <td class="num-col"><strong>{row.matchPoints}</strong></td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            <div class="results-footer-link">
+              <Button href="/nieuws/pentachess-viertallencompetitie-2025-2026-einduitslagen/" variant="outline-blue" size="sm" showArrow={true}>
+                Bekijk volledig verslag & alle 17 teams
+              </Button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .calendar-stack {
+    background-color: var(--color-surface);
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-card);
+    overflow: hidden;
+    divide-y: 1px solid var(--color-border);
+  }
+
+  .calendar-row {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1.15rem 1.5rem;
+    border-bottom: 1px solid var(--color-border);
+    transition: background-color 0.15s ease;
+  }
+
+  .calendar-row:last-child {
+    border-bottom: none;
+  }
+
+  .calendar-row:hover {
+    background-color: #FAFCFA;
+  }
+
+  @media (min-width: 640px) {
+    .calendar-row {
+      flex-direction: row;
+      align-items: center;
+    }
+  }
+
+  .calendar-row-left {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .event-badge {
+    display: inline-block;
+    min-width: 96px;
+    text-align: center;
+    padding: 0.35rem 0.9rem;
+    border-radius: var(--radius-pill);
+    color: #FFFFFF;
+    font-weight: 700;
+    font-size: 0.82rem;
+  }
+
+  .badge-green { background-color: var(--badge-green-bg); }
+  .badge-blue { background-color: var(--badge-blue-bg); }
+  .badge-orange { background-color: var(--badge-orange-bg); }
+  .badge-pink { background-color: var(--badge-pink-bg); }
+  .badge-purple { background-color: var(--badge-purple-bg); }
+
+  .event-title {
+    font-size: 1rem;
+    color: var(--color-text-primary);
+  }
+
+  .results-card {
+    padding: 2.5rem 2rem;
+  }
+
+  .results-heading {
+    text-align: center;
+    font-size: clamp(1.4rem, 2.5vw, 1.85rem);
+    margin-bottom: 2rem;
+  }
+
+  .results-split {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+    align-items: center;
+  }
+
+  @media (min-width: 820px) {
+    .results-split {
+      grid-template-columns: 0.95fr 1.05fr;
+    }
+  }
+
+  .podium-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .podium-legend {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    color: var(--color-text-secondary);
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+
+  .standings-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+  }
+
+  .standings-table th {
+    text-align: left;
+    padding: 0.65rem 0.75rem;
+    font-weight: 800;
+    color: var(--color-text-secondary);
+    border-bottom: 2px solid var(--color-border);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+  }
+
+  .standings-table td {
+    padding: 0.7rem 0.75rem;
+    border-bottom: 1px solid var(--color-border);
+    color: var(--color-text-primary);
+  }
+
+  .standings-table tr:nth-child(even) {
+    background-color: var(--color-bg-soft);
+  }
+
+  .rank-cell {
+    font-weight: 800;
+    width: 36px;
+  }
+
+  .team-cell {
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .mini-board-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    border-radius: 4px;
+    background-color: var(--color-border);
+    font-size: 0.8rem;
+  }
+
+  .num-col {
+    text-align: right !important;
+  }
+
+  .results-footer-link {
+    margin-top: 1.25rem;
+    text-align: right;
+  }
+</style>

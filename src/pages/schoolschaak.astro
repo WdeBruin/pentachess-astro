@@ -1,41 +1,297 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import pagesData from '../data/pages.json';
+import HeroSection from '../components/HeroSection.astro';
+import AmbassadorCards from '../components/AmbassadorCards.astro';
+import Button from '../components/Button.astro';
 
-const page = pagesData['schoolschaak'];
+const trainers = [
+  {
+    name: 'Tea Lanchava',
+    role: 'Topschaakster & ChessQueen',
+    area: 'Inzetbaar als trainer voor topschakers en scholen in Midden-Nederland, Vijfheerenlanden en Molenwaard.',
+  },
+  {
+    name: 'Jorik Klein',
+    role: 'Schoolschaak & Online Trainer',
+    area: 'Inzetbaar voor beginners en online schaaklessen.',
+  },
+  {
+    name: 'Ruud Neumeijer',
+    role: 'Schoolschaaktrainer',
+    area: 'Inzetbaar voor schoolschaak in de regio Rotterdam.',
+  },
+  {
+    name: 'Herbert Eppinga',
+    role: 'Secretaris & Clinictrainer',
+    area: 'Inzetbaar voor schoolschaakclinics in de regio Vijfheerenlanden.',
+  },
+  {
+    name: 'Kees van Wijk',
+    role: 'Schoolschaaktrainer',
+    area: 'Inzetbaar voor schoolschaak in Meerkerk.',
+  },
+];
 ---
 
-<BaseLayout
-  title="Schoolschaak – Pentachess"
-  bodyClass="page-template-default page page-id-172 custom-background wp-custom-logo wp-embed-responsive singular missing-post-thumbnail has-no-pagination not-showing-comments show-avatars footer-top-visible"
->
-  <article class="post-172 page type-page status-publish hentry" id="post-172">
-    <header class="entry-header has-text-align-center header-footer-group">
-      <div class="entry-header-inner section-inner medium">
-        <h1 class="entry-title">{page.title}</h1>
-      </div>
-    </header>
+<BaseLayout title="Schoolschaak – Schaken op jouw school! – Pentachess">
+  <!-- 1. Hero Section -->
+  <HeroSection
+    title="Schaken op jouw school!"
+    subtitle="Wij weten dat schaken geweldig is voor de ontwikkeling van ieder kind: sociale vaardigheden, onder tijdsdruk beslissen, tegen je verlies kunnen, maar vooral heel veel plezier!"
+    primaryCtaText="Meld je school aan"
+    primaryCtaHref="#aanmelden"
+    secondaryCtaText="Onze Schaaklessen"
+    secondaryCtaHref="/schaakles/"
+    imageSrc="/images/redesign/hero-schoolschaak.png"
+    imageAlt="Leraar geeft schaakles op het demonstratiebord in een klaslokaal"
+  />
 
-    <div class="post-inner thin">
-      <div class="entry-content" set:html={page.content} />
+  <!-- 2. Section: Informatief, Schoolschaak (2-column Grid) -->
+  <section class="section">
+    <div class="container-narrow">
+      <h2 class="section-title">Informatief, Schoolschaak</h2>
+
+      <div class="info-cards-grid">
+        <article class="surface-card info-card">
+          <h3>Zelf aan de slag (online)</h3>
+          <p>
+            De basisschool gaat zelf aan de slag met het online programma <strong>Chessity</strong> (vergelijkbaar met reken- en taalprogramma’s op school). Wij helpen de juf of meester met het kiezen van de juiste schaakspelletjes op echte schaakborden én met het leerlingvolgsysteem van Chessity.
+          </p>
+          <p class="info-highlight">
+            Inclusief gratis kennismakingsclinic aan het begin van het schooljaar voor groep 4 t/m 8!
+          </p>
+        </article>
+
+        <article class="surface-card info-card">
+          <h3>Begeleiding door een trainer</h3>
+          <p>
+            De basisschool schakelt een gecertificeerde Pentachess-schaakdocent (met VOG) in om wekelijks een uurtje schaakles te geven in de klas (met digibord) of online. Tijdens de lessen worden veel spelletjes en puzzels gespeeld, aangevuld met Chessity zodat kinderen ook thuis kunnen oefenen.
+          </p>
+          <p class="info-highlight">
+            In januari/februari/maart verzorgen wij bovendien de aansluiting naar het regionale schoolschaaktoernooi!
+          </p>
+        </article>
+      </div>
     </div>
-  </article>
+  </section>
+
+  <!-- 3. Section: Meld je school aan (Split CTA & Form Container) -->
+  <section class="section" id="aanmelden" style="padding-top: 0.5rem;">
+    <div class="container-narrow">
+      <div class="cta-banner-split">
+        <div class="cta-banner-left">
+          <h2>Meld je school aan</h2>
+          <p>
+            Laagdrempelig starten met schaken op school? Vraag vrijblijvend een gratis proefclinic (groep 4 t/m 8) of een offerte op maat aan voor jouw basisschool.
+          </p>
+          <Button href="mailto:pentachess@gmail.com?subject=Aanmelding%20Schoolschaak" variant="primary" showArrow={true}>
+            Neem contact op
+          </Button>
+        </div>
+
+        <div class="cta-form-card">
+          <form
+            action="mailto:pentachess@gmail.com"
+            method="get"
+            enctype="text/plain"
+            class="school-form"
+          >
+            <div class="form-group">
+              <label for="school-email" class="screen-reader-text">E-mailadres</label>
+              <input
+                type="email"
+                id="school-email"
+                name="body"
+                placeholder="E-mailadres van school / contactpersoon"
+                required
+                class="form-input"
+              />
+            </div>
+            <div class="form-group">
+              <label for="school-name" class="screen-reader-text">Naam basisschool en vraag</label>
+              <textarea
+                id="school-name"
+                name="subject"
+                rows="3"
+                placeholder="Naam van de school, plaats en jullie wens (bijv. gratis clinic of trainer)"
+                required
+                class="form-input form-textarea"
+              ></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary form-submit">
+              Neem contact op
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. Section: Video & Onze Schoolschaaktrainers -->
+  <section class="section section-alt">
+    <div class="container-narrow">
+      <h2 class="section-title">Bekijk hoe schoolschaak werkt</h2>
+      <div class="video-embed-wrapper" style="margin-bottom: 3.5rem;">
+        <iframe
+          loading="lazy"
+          title="Wil jij leren aan de slag met schaken op de basisschool?"
+          width="580"
+          height="326"
+          src="https://www.youtube.com/embed/oaEyEfAZUNQ?feature=oembed"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+        ></iframe>
+      </div>
+
+      <h2 class="section-title">Onze Schoolschaaktrainers</h2>
+      <div class="trainers-grid">
+        {trainers.map((t) => (
+          <div class="surface-card trainer-card">
+            <h3>{t.name}</h3>
+            <p class="trainer-role">{t.role}</p>
+            <p class="trainer-area">{t.area}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. Section: Ambassadeurs -->
+  <section class="section">
+    <div class="container">
+      <h2 class="section-title">Bekende Schakers & Ambassadeurs</h2>
+      <AmbassadorCards />
+    </div>
+  </section>
 </BaseLayout>
 
-<style is:global>
-  .wp-embed-aspect-16-9 .wp-block-embed__wrapper {
-    position: relative;
-    padding-bottom: 56.25%;
-    height: 0;
-    overflow: hidden;
-    max-width: 100%;
+<style>
+  .info-cards-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
   }
-  .wp-embed-aspect-16-9 .wp-block-embed__wrapper iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
+
+  @media (min-width: 720px) {
+    .info-cards-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .info-card h3 {
+    font-size: 1.3rem;
+    margin-bottom: 0.75rem;
+    color: var(--color-text-primary);
+  }
+
+  .info-highlight {
+    margin-top: 1rem;
+    margin-bottom: 0;
+    padding: 0.75rem 1rem;
+    background-color: var(--color-bg-soft);
+    border-left: 4px solid var(--color-primary-green);
+    border-radius: 0 var(--radius-md) var(--radius-md) 0;
+    font-weight: 600;
+    font-size: 0.92rem;
+    color: var(--color-text-primary);
+  }
+
+  .cta-banner-split {
+    background: linear-gradient(125deg, #1E88E5 0%, #1E88E5 52%, #4CAF50 100%);
+    border-radius: var(--radius-card);
+    padding: 2.5rem 2rem;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    align-items: center;
+    box-shadow: var(--shadow-card-hover);
+  }
+
+  @media (min-width: 800px) {
+    .cta-banner-split {
+      grid-template-columns: 1.05fr 0.95fr;
+      padding: 3rem;
+    }
+  }
+
+  .cta-banner-left h2 {
+    color: #FFFFFF;
+    font-size: clamp(1.6rem, 2.8vw, 2.1rem);
+    margin-bottom: 0.75rem;
+  }
+
+  .cta-banner-left p {
+    color: rgba(255, 255, 255, 0.92);
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+  }
+
+  .cta-form-card {
+    background-color: var(--color-surface);
+    border-radius: var(--radius-md);
+    padding: 1.5rem;
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+  }
+
+  .school-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+  }
+
+  .form-input {
     width: 100%;
-    height: 100%;
-    border: 0;
+    padding: 0.8rem 1rem;
+    border: 1px solid var(--color-border);
+    border-radius: 10px;
+    background-color: #F8FAFC;
+    font-family: var(--font-sans);
+    font-size: 0.95rem;
+    color: var(--color-text-primary);
+    transition: border-color 0.2s ease, background-color 0.2s ease;
+  }
+
+  .form-input:focus {
+    outline: none;
+    border-color: var(--color-primary-blue);
+    background-color: #FFFFFF;
+  }
+
+  .form-textarea {
+    resize: vertical;
+  }
+
+  .form-submit {
+    width: 100%;
+  }
+
+  .trainers-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  @media (min-width: 640px) {
+    .trainers-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .trainer-card h3 {
+    font-size: 1.15rem;
+    margin-bottom: 0.2rem;
+  }
+
+  .trainer-role {
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: var(--color-primary-green);
+    margin-bottom: 0.5rem;
+  }
+
+  .trainer-area {
+    font-size: 0.92rem;
+    margin: 0;
   }
 </style>

@@ -1,0 +1,52 @@
+---
+interface Props {
+  href?: string;
+  variant?: 'primary' | 'secondary' | 'outline-white' | 'outline-blue' | 'outline-green';
+  size?: 'md' | 'sm';
+  showArrow?: boolean;
+  type?: 'button' | 'submit';
+  class?: string;
+}
+
+const {
+  href,
+  variant = 'primary',
+  size = 'md',
+  showArrow = false,
+  type = 'button',
+  class: className = '',
+} = Astro.props;
+
+const classes = [
+  'btn',
+  `btn-${variant}`,
+  size === 'sm' ? 'btn-sm' : '',
+  className,
+].filter(Boolean).join(' ');
+---
+
+{href ? (
+  <a href={href} class={classes}>
+    <slot />
+    {showArrow && (
+      <span class="btn-arrow" aria-hidden="true">&rarr;</span>
+    )}
+  </a>
+) : (
+  <button type={type} class={classes}>
+    <slot />
+    {showArrow && (
+      <span class="btn-arrow" aria-hidden="true">&rarr;</span>
+    )}
+  </button>
+)}
+
+<style>
+  .btn-arrow {
+    display: inline-block;
+    transition: transform 0.18s ease;
+  }
+  .btn:hover .btn-arrow {
+    transform: translateX(3px);
+  }
+</style>

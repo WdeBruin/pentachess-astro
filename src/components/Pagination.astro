@@ -13,15 +13,9 @@ function getPageUrl(p: number) {
   return `${base}page/${p}/`;
 }
 
-// Generate pagination item list
-// e.g. for 5 pages total
 const pages: (number | 'dots')[] = [];
 for (let i = 1; i <= totalPages; i++) {
-  if (
-    i === 1 ||
-    i === totalPages ||
-    (i >= currentPage - 1 && i <= currentPage + 1)
-  ) {
+  if (i === 1 || i === totalPages || (i >= currentPage - 1 && i <= currentPage + 1)) {
     pages.push(i);
   } else if (pages[pages.length - 1] !== 'dots') {
     pages.push('dots');
@@ -30,41 +24,74 @@ for (let i = 1; i <= totalPages; i++) {
 ---
 
 {totalPages > 1 && (
-  <div class="pagination-wrapper section-inner">
-    <hr class="styled-separator pagination-separator is-style-wide" aria-hidden="true" />
-    <nav class="navigation pagination" aria-label="Berichten">
-      <h2 class="screen-reader-text">Berichtnavigatie</h2>
-      <div class="nav-links">
-        {currentPage > 1 ? (
-          <a class="prev page-numbers" href={getPageUrl(currentPage - 1)}>
-            <span aria-hidden="true">&larr;</span> <span class="nav-prev-text">Nieuwere <span class="nav-short">berichten</span></span>
-          </a>
-        ) : (
-          <span class="prev page-numbers placeholder" aria-hidden="true">
-            <span aria-hidden="true">&larr;</span> <span class="nav-prev-text">Nieuwere <span class="nav-short">berichten</span></span>
-          </span>
-        )}
+  <nav class="pagination-nav" aria-label="Berichten paginering">
+    {currentPage > 1 && (
+      <a class="btn btn-outline-blue btn-sm" href={getPageUrl(currentPage - 1)}>
+        &larr; Nieuwere
+      </a>
+    )}
 
-        {pages.map((p) => {
-          if (p === 'dots') {
-            return <span class="page-numbers dots">&hellip;</span>;
-          }
-          if (p === currentPage) {
-            return <span aria-current="page" class="page-numbers current">{p}</span>;
-          }
-          return <a class="page-numbers" href={getPageUrl(p)}>{p}</a>;
-        })}
+    <div class="pagination-numbers">
+      {pages.map((p) => {
+        if (p === 'dots') return <span class="page-dots">&hellip;</span>;
+        if (p === currentPage) {
+          return <span aria-current="page" class="page-pill is-current">{p}</span>;
+        }
+        return <a class="page-pill" href={getPageUrl(p)}>{p}</a>;
+      })}
+    </div>
 
-        {currentPage < totalPages ? (
-          <a class="next page-numbers" href={getPageUrl(currentPage + 1)}>
-            <span class="nav-next-text">Oudere <span class="nav-short">berichten</span></span> <span aria-hidden="true">&rarr;</span>
-          </a>
-        ) : (
-          <span class="next page-numbers placeholder" aria-hidden="true">
-            <span class="nav-next-text">Oudere <span class="nav-short">berichten</span></span> <span aria-hidden="true">&rarr;</span>
-          </span>
-        )}
-      </div>
-    </nav>
-  </div>
+    {currentPage < totalPages && (
+      <a class="btn btn-outline-blue btn-sm" href={getPageUrl(currentPage + 1)}>
+        Oudere &rarr;
+      </a>
+    )}
+  </nav>
 )}
+
+<style>
+  .pagination-nav {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin: 2.5rem 0;
+  }
+
+  .pagination-numbers {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  .page-pill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    font-weight: 700;
+    font-size: 0.92rem;
+    color: var(--color-text-primary);
+    background-color: var(--color-surface);
+    box-shadow: var(--shadow-card);
+    text-decoration: none;
+  }
+
+  .page-pill:hover {
+    background-color: var(--color-primary-blue-light);
+    color: var(--color-primary-blue);
+  }
+
+  .page-pill.is-current {
+    background-color: var(--color-primary-green);
+    color: #FFFFFF;
+  }
+
+  .page-dots {
+    padding: 0 0.4rem;
+    color: var(--color-text-secondary);
+  }
+</style>

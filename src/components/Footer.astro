@@ -1,0 +1,145 @@
+---
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="site-footer" role="contentinfo">
+  <div class="container footer-grid">
+    <div class="footer-brand">
+      <a href="/" class="footer-logo-link">
+        <img
+          src="/wp-content/uploads/2020/04/pentachess_logo.png"
+          alt="Stichting Pentachess"
+          width="150"
+          height="87"
+          loading="lazy"
+        />
+      </a>
+      <p class="footer-desc">
+        Stichting Pentachess bevordert de jeugdschaaksport in de Merwede- en Vijfheerenlanden-regio via toernooien, schoolschaak en schaaktrainingen.
+      </p>
+      <p class="footer-meta">RSIN: 8602.39.160</p>
+    </div>
+
+    <div class="footer-col">
+      <h4>Snel naar</h4>
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/over-ons/" onclick="window.location.href='/info/'; return false;">Over Ons</a></li>
+        <li><a href="/info/">Over Stichting Pentachess</a></li>
+        <li><a href="/toernooien/">Toernooien & Kalender</a></li>
+        <li><a href="/schoolschaak/">Schoolschaak</a></li>
+        <li><a href="/schaakles/">Schaakles</a></li>
+        <li><a href="/nieuws/">Laatste Nieuws</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4>Aangesloten Clubs</h4>
+      <ul>
+        <li>Schaakvereniging Dordrecht</li>
+        <li>Schaakvereniging Pascal (Papendrecht)</li>
+        <li>Schaakvereniging Sliedrecht</li>
+        <li>Schaakvereniging Giessen en Linge</li>
+        <li>Meerkerk Schaakt</li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <p>Wil je een gratis clinic op school, meedoen aan een toernooi of schaakles volgen?</p>
+      <a href="mailto:pentachess@gmail.com" class="footer-mail">pentachess@gmail.com</a>
+      <div style="margin-top: 1rem;">
+        <a href="/schoolschaak/#aanmelden" class="btn btn-primary btn-sm">Meld je school aan &rarr;</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="container footer-bottom">
+    <p>&copy; {currentYear} Stichting Pentachess (pentachess.nl). Alle rechten voorbehouden.</p>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    background-color: var(--color-surface);
+    border-top: 1px solid var(--color-border);
+    padding: 4rem 0 2rem;
+    margin-top: 4rem;
+  }
+
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .footer-grid {
+      grid-template-columns: 1.4fr 1fr 1fr 1.2fr;
+    }
+  }
+
+  .footer-logo-link img {
+    height: 52px;
+    width: auto;
+    margin-bottom: 1rem;
+  }
+
+  .footer-desc {
+    font-size: 0.95rem;
+    color: var(--color-text-secondary);
+    margin-bottom: 0.5rem;
+  }
+
+  .footer-meta {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--color-text-secondary);
+  }
+
+  .footer-col h4 {
+    font-size: 1.05rem;
+    font-weight: 800;
+    color: var(--color-text-primary);
+    margin-bottom: 1rem;
+  }
+
+  .footer-col ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .footer-col li,
+  .footer-col a {
+    font-size: 0.95rem;
+    color: var(--color-text-secondary);
+    text-decoration: none;
+  }
+
+  .footer-col a:hover {
+    color: var(--color-primary-green);
+  }
+
+  .footer-mail {
+    font-weight: 700;
+    color: var(--color-primary-blue) !important;
+    display: inline-block;
+  }
+
+  .footer-bottom {
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--color-border);
+    text-align: center;
+  }
+
+  .footer-bottom p {
+    margin: 0;
+    font-size: 0.875rem;
+    color: var(--color-text-secondary);
+  }
+</style>

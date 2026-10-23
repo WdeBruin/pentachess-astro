@@ -5,76 +5,272 @@ interface Props {
 
 const { currentPath = '/' } = Astro.props;
 
-const normalizedPath = currentPath.endsWith('/') && currentPath.length > 1 ? currentPath : `${currentPath}/`;
+const normalizedPath =
+  currentPath.endsWith('/') && currentPath.length > 1
+    ? currentPath
+    : currentPath === '/'
+      ? '/'
+      : `${currentPath}/`;
 
 const navItems = [
-  { label: 'Home', href: '/', id: 'menu-item-71', isActive: normalizedPath === '/' },
-  { label: 'Info', href: '/info/', id: 'menu-item-72', isActive: normalizedPath.startsWith('/info/') },
-  { label: 'Nieuws', href: '/nieuws/', id: 'menu-item-74', isActive: normalizedPath.startsWith('/nieuws/') || normalizedPath.startsWith('/author/') },
-  { label: 'Schoolschaak', href: '/schoolschaak/', id: 'menu-item-181', isActive: normalizedPath.startsWith('/schoolschaak/') },
+  { label: 'Home', href: '/', isActive: normalizedPath === '/' },
+  { label: 'Over Ons', href: '/info/', isActive: normalizedPath.startsWith('/info/') },
+  { label: 'Toernooien', href: '/toernooien/', isActive: normalizedPath.startsWith('/toernooien/') },
+  { label: 'Schoolschaak', href: '/schoolschaak/', isActive: normalizedPath.startsWith('/schoolschaak/') },
+  { label: 'Schaakles', href: '/schaakles/', isActive: normalizedPath.startsWith('/schaakles/') },
+  {
+    label: 'Nieuws',
+    href: '/nieuws/',
+    isActive: normalizedPath.startsWith('/nieuws/') || normalizedPath.startsWith('/author/'),
+  },
 ];
 ---
 
-<header id="site-header" class="header-footer-group" role="banner">
-  <div class="header-inner section-inner">
-    <div class="header-titles-wrapper">
-      <div class="header-titles">
-        <div class="site-logo faux-heading">
-          <a href="/" class="custom-logo-link" rel="home" {...(normalizedPath === '/' ? { 'aria-current': 'page' } : {})}>
-            <img width="2953" height="1713" src="/wp-content/uploads/2020/04/pentachess_logo.png" class="custom-logo" alt="Pentachess" decoding="async" fetchpriority="high" />
-          </a>
-          <span class="screen-reader-text">Pentachess</span>
-        </div>
-      </div><!-- .header-titles -->
+<header class="site-header" role="banner">
+  <div class="container header-inner">
+    <a href="/" class="logo-link" rel="home" aria-label="Pentachess.nl Home">
+      <img
+        src="/wp-content/uploads/2020/04/pentachess_logo.png"
+        alt="pentachess.nl"
+        width="165"
+        height="96"
+        class="logo-img"
+        decoding="async"
+        fetchpriority="high"
+      />
+    </a>
 
-      <button class="toggle nav-toggle mobile-nav-toggle" data-toggle-target=".menu-modal" data-toggle-body-class="showing-menu-modal" aria-expanded="false" data-set-focus=".close-nav-toggle">
-        <span class="toggle-inner">
-          <span class="toggle-icon">
-            <svg class="svg-icon" aria-hidden="true" role="img" focusable="false" xmlns="http://www.w3.org/2000/svg" width="26" height="7" viewBox="0 0 26 7"><path fill-rule="evenodd" d="M332.5,45 C330.567003,45 329,43.4329966 329,41.5 C329,39.5670034 330.567003,38 332.5,38 C334.432997,38 336,39.5670034 336,41.5 C336,43.4329966 334.432997,45 332.5,45 Z M342,45 C340.067003,45 338.5,43.4329966 338.5,41.5 C338.5,39.5670034 340.067003,38 342,38 C343.932997,38 345.5,39.5670034 345.5,41.5 C345.5,43.4329966 343.932997,45 342,45 Z M351.5,45 C349.567003,45 348,43.4329966 348,41.5 C348,39.5670034 349.567003,38 351.5,38 C353.432997,38 355,39.5670034 355,41.5 C355,43.4329966 353.432997,45 351.5,45 Z" transform="translate(-329 -38)" /></svg>
-          </span>
-          <span class="toggle-text">Menu</span>
-        </span>
-      </button><!-- .nav-toggle -->
-    </div><!-- .header-titles-wrapper -->
+    <!-- Desktop Navigation -->
+    <nav class="desktop-nav" aria-label="Hoofdnavigatie">
+      <ul class="nav-list">
+        {navItems.map((item) => (
+          <li>
+            <a
+              href={item.href}
+              class={`nav-link ${item.isActive ? 'is-active' : ''}`}
+              {...(item.isActive ? { 'aria-current': 'page' } : {})}
+            >
+              {item.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
 
-    <div class="header-navigation-wrapper">
-      <nav class="primary-menu-wrapper" aria-label="Horizontaal" role="navigation">
-        <ul class="primary-menu reset-list-style">
-          {navItems.map((item) => (
-            <li id={item.id} class={`menu-item menu-item-type-custom menu-item-object-custom ${item.isActive ? 'current-menu-item current_page_item' : ''} ${item.id === 'menu-item-71' ? 'menu-item-home' : ''}`}>
-              <a href={item.href} {...(item.isActive ? { 'aria-current': 'page' } : {})}>{item.label}</a>
-            </li>
-          ))}
-        </ul>
-      </nav><!-- .primary-menu-wrapper -->
-    </div><!-- .header-navigation-wrapper -->
-  </div><!-- .header-inner -->
-</header><!-- #site-header -->
+    <!-- Mobile Hamburger Button -->
+    <button
+      type="button"
+      class="mobile-menu-toggle"
+      id="mobile-menu-toggle"
+      aria-expanded="false"
+      aria-controls="mobile-menu-drawer"
+      aria-label="Menu openen"
+    >
+      <svg class="icon-hamburger" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+        <line x1="3" y1="6" x2="21" y2="6" />
+        <line x1="3" y1="12" x2="21" y2="12" />
+        <line x1="3" y1="18" x2="21" y2="18" />
+      </svg>
+      <svg class="icon-close" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+        <line x1="18" y1="6" x2="6" y2="18" />
+        <line x1="6" y1="6" x2="18" y2="18" />
+      </svg>
+    </button>
+  </div>
 
-<div class="menu-modal cover-modal header-footer-group" data-modal-target-string=".menu-modal">
-  <div class="menu-modal-inner modal-inner">
-    <div class="menu-wrapper section-inner">
-      <div class="menu-top">
-        <button class="toggle close-nav-toggle fill-children-current-color" data-toggle-target=".menu-modal" data-toggle-body-class="showing-menu-modal" aria-expanded="false" data-set-focus=".menu-modal">
-          <span class="toggle-text">Menu sluiten</span>
-          <svg class="svg-icon" aria-hidden="true" role="img" focusable="false" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><polygon fill="" fill-rule="evenodd" points="6.852 7.649 .399 1.195 1.445 .149 7.899 6.602 14.352 .149 15.399 1.195 8.945 7.649 15.399 14.102 14.352 15.149 7.899 8.695 1.445 15.149 .399 14.102" /></svg>
-        </button><!-- .nav-toggle -->
+  <!-- Mobile Collapsible Drawer -->
+  <div class="mobile-drawer" id="mobile-menu-drawer" hidden>
+    <nav aria-label="Mobiele navigatie" class="container mobile-drawer-inner">
+      <ul class="mobile-nav-list">
+        {navItems.map((item) => (
+          <li>
+            <a
+              href={item.href}
+              class={`mobile-nav-link ${item.isActive ? 'is-active' : ''}`}
+              {...(item.isActive ? { 'aria-current': 'page' } : {})}
+            >
+              {item.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  </div>
+</header>
 
-        <nav class="mobile-menu" aria-label="Mobiel" role="navigation">
-          <ul class="modal-menu reset-list-style">
-            {navItems.map((item) => (
-              <li class={`menu-item menu-item-type-custom menu-item-object-custom ${item.isActive ? 'current-menu-item current_page_item' : ''} ${item.id === 'menu-item-71' ? 'menu-item-home' : ''}`}>
-                <div class="ancestor-wrapper">
-                  <a href={item.href} {...(item.isActive ? { 'aria-current': 'page' } : {})}>{item.label}</a>
-                </div>
-              </li>
-            ))}
-          </ul>
-        </nav>
-      </div><!-- .menu-top -->
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background-color: var(--color-surface);
+    box-shadow: var(--shadow-header);
+  }
 
-      <div class="menu-bottom">
-      </div><!-- .menu-bottom -->
-    </div><!-- .menu-wrapper -->
-  </div><!-- .menu-modal-inner -->
-</div><!-- .menu-modal -->
+  .header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 80px;
+    gap: 1.5rem;
+  }
+
+  .logo-link {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+  }
+
+  .logo-img {
+    height: 54px;
+    width: auto;
+    object-fit: contain;
+  }
+
+  .desktop-nav {
+    display: none;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  @media (min-width: 960px) {
+    .desktop-nav {
+      display: flex;
+    }
+  }
+
+  .nav-list {
+    display: flex;
+    align-items: center;
+    gap: 1.75rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .nav-link {
+    font-family: var(--font-sans);
+    font-weight: 600;
+    font-size: 1rem;
+    color: var(--color-text-primary);
+    text-decoration: none;
+    padding: 0.35rem 0;
+    position: relative;
+    transition: color 0.2s ease;
+  }
+
+  .nav-link:hover,
+  .nav-link.is-active {
+    color: var(--color-primary-green);
+  }
+
+  .nav-link.is-active::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -2px;
+    height: 3px;
+    border-radius: 999px;
+    background-color: var(--color-primary-green);
+  }
+
+  .nav-cta {
+    padding: 0.6rem 1.4rem;
+    font-size: 0.95rem;
+  }
+
+  .mobile-menu-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: 0.5rem;
+    color: var(--color-text-primary);
+    cursor: pointer;
+  }
+
+  .mobile-menu-toggle .icon-close {
+    display: none;
+  }
+
+  .mobile-menu-toggle[aria-expanded='true'] .icon-hamburger {
+    display: none;
+  }
+
+  .mobile-menu-toggle[aria-expanded='true'] .icon-close {
+    display: block;
+  }
+
+  @media (min-width: 960px) {
+    .mobile-menu-toggle {
+      display: none;
+    }
+  }
+
+  .mobile-drawer {
+    background-color: var(--color-surface);
+    border-top: 1px solid var(--color-border);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+  }
+
+  .mobile-drawer-inner {
+    padding-top: 1rem;
+    padding-bottom: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .mobile-nav-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .mobile-nav-link {
+    display: block;
+    padding: 0.65rem 0.75rem;
+    border-radius: var(--radius-md);
+    font-weight: 700;
+    color: var(--color-text-primary);
+    text-decoration: none;
+  }
+
+  .mobile-nav-link:hover,
+  .mobile-nav-link.is-active {
+    background-color: var(--color-bg-soft);
+    color: var(--color-primary-green);
+  }
+
+  .mobile-cta {
+    width: 100%;
+    text-align: center;
+  }
+</style>
+
+<script>
+  function initMobileMenu() {
+    const btn = document.getElementById('mobile-menu-toggle');
+    const drawer = document.getElementById('mobile-menu-drawer');
+    if (!btn || !drawer) return;
+
+    btn.addEventListener('click', () => {
+      const isOpen = btn.getAttribute('aria-expanded') === 'true';
+      btn.setAttribute('aria-expanded', String(!isOpen));
+      if (isOpen) {
+        drawer.setAttribute('hidden', '');
+      } else {
+        drawer.removeAttribute('hidden');
+      }
+    });
+  }
+
+  initMobileMenu();
+  document.addEventListener('astro:after-swap', initMobileMenu);
+</script>
