@@ -19,6 +19,15 @@ export interface TeamStanding {
 
 export const calendarEvents2026_2027: CalendarEvent[] = [
   {
+    badge: 'Gorinchem',
+    badgeColor: 'green',
+    dateLabel: '25 Okt 2026',
+    title: 'ONJK Snelschaak Gorinchem',
+    location: 'Gorinchem',
+    href: '/nieuws/onjk-snelschaak-25-oktober-gorinchem/',
+    ctaLabel: 'Bekijk details',
+  },
+  {
     badge: 'Meerkerk',
     badgeColor: 'pink',
     dateLabel: '11 Dec 2026',
@@ -85,14 +94,6 @@ export const calendarEvents2026_2027: CalendarEvent[] = [
 ];
 
 export const calendarEvents2025_2026: CalendarEvent[] = [
-  {
-    badge: 'Gorinchem',
-    badgeColor: 'green',
-    dateLabel: '25 Okt 2025',
-    title: 'ONJK Snelschaken Gorinchem',
-    href: '/nieuws/onjk-snelschaak-25-oktober-gorinchem/',
-    ctaLabel: 'Nieuwsbericht',
-  },
   {
     badge: 'Sliedrecht',
     badgeColor: 'blue',
