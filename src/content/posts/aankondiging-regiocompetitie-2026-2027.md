@@ -23,7 +23,7 @@ Naast de populaire regionale viertallencompetitie staan er ook weer mooie Grand 
 Dit seizoen organiseren we weer 5 gezellige en spannende competitieavonden verspreid over de verenigingen en speellocaties in de regio:
 
 1. **Vrijdag 11 december 2026** – in **Meerkerk** (Dorpshuis De Linde)
-2. **Vrijdag 15 januari 2027** – in **Sliedrecht** (Activiteitencentrum De Havik)
+2. **Vrijdag 22 januari 2027** – in **Sliedrecht** (Activiteitencentrum De Havik)
 3. **Vrijdag 19 februari 2027** – in **Gorinchem** (Fortes Lyceum)
 4. **Vrijdag 16 april 2027** – in **Papendrecht** (Denksportcentrum)
 5. **Vrijdag 28 mei 2027** – in **Dordrecht** (Johann de Witt Gymnasium)

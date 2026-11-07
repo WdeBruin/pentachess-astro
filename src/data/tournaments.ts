@@ -39,7 +39,7 @@ export const calendarEvents2026_2027: CalendarEvent[] = [
   {
     badge: 'Sliedrecht',
     badgeColor: 'blue',
-    dateLabel: '15 Jan 2027',
+    dateLabel: '22 Jan 2027',
     title: 'Regiocompetitie Viertallen – Ronde 2 Sliedrecht',
     location: 'Activiteitencentrum De Havik, Sliedrecht',
     href: '/nieuws/aankondiging-regiocompetitie-2026-2027/',
